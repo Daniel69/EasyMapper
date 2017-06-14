@@ -1,0 +1,106 @@
+<h2>Ejemplo declaraci&oacute;n Funcion Almacenada</h2>
+<p style='color:#696969;'>En el siguiente ejemplo se muestra como declarar una funci&oacute;n almacenada con un cursor de personas como valor de retorno, y un parametro de entrada.</p>
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+
+@StoredProcedure(name="encontrar_persona", packageName="PERSONAS_PKG", isFunction=true)
+@FunctionReturnValue(returnType= ReturnType.CURSOR_REF, mappedClass=Persona.class)
+<span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> EncontrarPersonaOtherSP <span style='color:#800080; '>{</span>
+    
+    <span style='color:#808030; '>@</span>InputParameter<span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"PV_CEDULA"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> cedula<span style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> EncontrarPersonaOtherSP<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> cedula<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>cedula <span style='color:#808030; '>=</span> cedula<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getCedula<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> cedula<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setCedula<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> cedula<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>cedula <span style='color:#808030; '>=</span> cedula<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#696969; '>//Clase mapeada para el cursor de retorno</span>
+<span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> Persona <span style='color:#800080; '>{</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#800000; font-weight:bold; '>final</span> Logger logger <span style='color:#808030; '>=</span> Logger<span style='color:#808030; '>.</span>getLogger<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"loggerModelo"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+ 
+    <span style='color:#808030; '>@</span><span style='color:#bb7977; font-weight:bold; '>Field</span><span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"NOMBRE"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> nombre<span style='color:#800080; '>;</span>
+    
+    <span style='color:#808030; '>@</span><span style='color:#bb7977; font-weight:bold; '>Field</span><span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"NOMBRE2"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> segundoNombre<span style='color:#800080; '>;</span>
+    
+    <span style='color:#808030; '>@</span><span style='color:#bb7977; font-weight:bold; '>Field</span><span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"APELLIDO"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> apellido<span style='color:#800080; '>;</span>
+    
+    <span style='color:#808030; '>@</span><span style='color:#bb7977; font-weight:bold; '>Field</span><span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"CEDULA"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> cedula<span style='color:#800080; '>;</span>
+    
+    <span style='color:#808030; '>@</span><span style='color:#bb7977; font-weight:bold; '>Field</span><span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"EMAIL"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> email<span style='color:#800080; '>;</span>
+    
+    <span style='color:#808030; '>@</span><span style='color:#bb7977; font-weight:bold; '>Field</span><span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"FECHA_NACIMIENTO"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>Date</span> fechaNacimiento<span style='color:#800080; '>;</span> 
+
+    <span style='color:#800000; font-weight:bold; '>public</span> Persona<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        logger<span style='color:#808030; '>.</span>log<span style='color:#808030; '>(</span>Level<span style='color:#808030; '>.</span>INFO<span style='color:#808030; '>,</span> <span style='color:#0000e6; '>"Creando instancia de: {0}"</span><span style='color:#808030; '>,</span> getClass<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>getName<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getNombre<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> nombre<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setNombre<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> nombre<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>nombre <span style='color:#808030; '>=</span> nombre<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getApellido<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> apellido<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setApellido<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> apellido<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>apellido <span style='color:#808030; '>=</span> apellido<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getCedula<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> cedula<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setCedula<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> cedula<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>cedula <span style='color:#808030; '>=</span> cedula<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getEmail<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> email<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setEmail<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> email<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>email <span style='color:#808030; '>=</span> email<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>Date</span> getFechaNacimiento<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> fechaNacimiento<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setFechaNacimiento<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>Date</span> fechaNacimiento<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>fechaNacimiento <span style='color:#808030; '>=</span> fechaNacimiento<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getSegundoNombre<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> segundoNombre<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setSegundoNombre<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> segundoNombre<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>segundoNombre <span style='color:#808030; '>=</span> segundoNombre<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#808030; '>@</span>Override
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> toString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>.</span>format<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Persona: %s %s %s, Email: %s"</span><span style='color:#808030; '>,</span> nombre<span style='color:#808030; '>,</span> segundoNombre<span style='color:#808030; '>,</span> apellido<span style='color:#808030; '>,</span> email<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+    
+    
+<span style='color:#800080; '>}</span>
+</pre>

@@ -1,0 +1,41 @@
+<h2>Ejemplo declaraci&oacute;n y uso de procedimiento almacenado</h2>
+<p style='color:#696969;'>En el siguiente ejemplo se muestra como declarar una procedimiento almacenado con un CLOB como parametro de entrada, luego ejecutarlo y obtener uno de los parametros de salida.</p>
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+@StoredProcedure(name="ingresar_historico", packageName="PERSONAS_PKG")
+<span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> IngresarHistoricoSP <span style='color:#800080; '>{</span>
+    
+    <span style='color:#808030; '>@</span>InputParameter<span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"NOMBRE_HIST"</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> nombre<span style='color:#800080; '>;</span>
+    
+    <span style='color:#808030; '>@</span>InputParameter<span style='color:#808030; '>(</span>name<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"HISTORICO_DATA"</span><span style='color:#808030; '>,</span> type<span style='color:#808030; '>=</span>MappingType<span style='color:#808030; '>.</span>CLOB<span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#bb7977; font-weight:bold; '>String</span> historial<span style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getHistorial<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> historial<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setHistorial<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> historial<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>historial <span style='color:#808030; '>=</span> historial<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; font-weight:bold; '>String</span> getNombre<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> nombre<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> setNombre<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span> nombre<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>nombre <span style='color:#808030; '>=</span> nombre<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#696969; '>//Ejecuci&oacute;n del procedimiento almacenado y obtenci&oacute;n de un par&aacute;metro de salida.</span>
+<span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> JavaApplication<span style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#bb7977; '>void</span> main<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> args<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        IngresarHistoricoSP historicoSP <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> IngresarHistoricoSP<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        historicoSP<span style='color:#808030; '>.</span>setNombre<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Clob uno"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        historicoSP<span style='color:#808030; '>.</span>setHistorial<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"Contenido del CLob de prueba... "</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        ProcedureResult result <span style='color:#808030; '>=</span> executor<span style='color:#808030; '>.</span>executeProcedure<span style='color:#808030; '>(</span>historicoSP<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#bb7977; font-weight:bold; '>Integer</span> resultadoEjecucion <span style='color:#808030; '>=</span> result<span style='color:#808030; '>.</span>getOutputParameter<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"COD_ERROR"</span><span style='color:#808030; '>,</span> <span style='color:#bb7977; font-weight:bold; '>Integer</span><span style='color:#808030; '>.</span>class<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>

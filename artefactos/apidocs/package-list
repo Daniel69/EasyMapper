@@ -1,0 +1,10 @@
+com.techandsolve.easymapper4j.core
+com.techandsolve.easymapper4j.descriptors
+com.techandsolve.easymapper4j.exceptions
+com.techandsolve.easymapper4j.jdbc
+com.techandsolve.easymapper4j.mapping
+com.techandsolve.easymapper4j.model.annotations
+com.techandsolve.easymapper4j.parameters
+com.techandsolve.easymapper4j.procedures.annotations
+com.techandsolve.easymapper4j.result
+com.techandsolve.easymapper4j.types
